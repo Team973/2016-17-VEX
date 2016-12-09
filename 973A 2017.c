@@ -14,21 +14,20 @@
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
 
-#define yAxis vexRT[Ch3]
-#define xAxis vexRT[Ch1]
+#define yAxis -vexRT[Ch3]
 #define rAxis vexRT[Ch1]
 //Main competition background code...do not modify!
 #include "Vex_Competition_Includes.c"
 
-void arcadeDrive(int xValue, int yValue, int rValue){
-	motor[frontLeft] = +xValue + yValue - rValue;
-	motor[midLeft2] = +xValue + yValue - rValue;
-	motor[midLeft1] = +xValue + yValue - rValue;
-	motor[backLeft] = +xValue + yValue - rValue;
-	motor[frontRight] = +xValue + yValue - rValue;
-	motor[midRIght2] = +xValue + yValue - rValue;
-	motor[midRight1] = +xValue + yValue - rValue;
-	motor[backRight] = +xValue + yValue - rValue;
+void arcadeDrive(int yValue, int rValue){
+	motor[frontLeft] = + yValue - rValue;
+	motor[midLeft2] = + yValue - rValue;
+	motor[backLeft] = + yValue - rValue;
+	motor[midLeft1] = + yValue - rValue;
+	motor[frontRight] = + yValue + rValue;
+	motor[midRIght2] = + yValue + rValue;
+	motor[midRight1] = + yValue + rValue;
+	motor[backRight] = + yValue + rValue;
 }
 
 void pre_auton()
@@ -38,12 +37,12 @@ void pre_auton()
 
 task autonomous()
 {
-  arcadeDrive(127,127,0);
+  arcadeDrive(127,0);
   wait1Msec(2000);
 }
 
 task usercontrol(){
 	while (true) {
-		arcadeDrive(xAxis,yAxis,rAxis);
+		arcadeDrive(yAxis,rAxis);
 	}
 }
